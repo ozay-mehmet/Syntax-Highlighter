@@ -13,7 +13,7 @@ This project is an advanced real-time syntax highlighter application, developed 
 
 ## 🧰 Technologies Used
 
-- Python 3.x
+- Python 3.12.4
 - PyQt5
 - QSyntaxHighlighter
 - Pygments
