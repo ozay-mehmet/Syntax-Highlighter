@@ -51,12 +51,3 @@ This project is an **advanced real-time syntax highlighter** application develop
 Her türlü katkıya açığız! İster hata bildir, ister kod gönder — Pull Request'lere ve Issues'lara açığız.
 
 ---
-
-## 🧠 Hedef Kitle / Target Audience
-
-- Derleyici, dil çözümleme veya GUI geliştirme öğrenen öğrenciler
-- Syntax highlighter motorlarını merak eden geliştiriciler
-- Python ile araç geliştirme üzerine çalışan açık kaynak geliştiriciler
-
----
-
