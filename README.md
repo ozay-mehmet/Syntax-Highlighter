@@ -1,32 +1,62 @@
 # 🖍️ Real-Time Grammar-Based Syntax Highlighter (Python + PyQt5)
 
-This project is an advanced real-time syntax highlighter application, developed in Python using modern libraries like **PyQt5** and **Pygments**. It provides a responsive GUI text editor that highlights programming language syntax based on grammatical structures (not just keyword matching), enabling more accurate code visualization.
+## 🇹🇷 Proje Açıklaması (Türkçe)
 
-## 🚀 Features
+Bu proje, Python programlama dili kullanılarak geliştirilen, **gerçek zamanlı dilbilgisine dayalı sözdizimi vurgulayıcı (syntax highlighter)** uygulamasıdır. **PyQt5** ile oluşturulmuş zengin bir kullanıcı arayüzü (GUI) sunar. **Pygments** kütüphanesi ile desteklenen çoklu programlama dili desteği ve doğru sözdizimi renklendirmesi sağlar.
 
-- ✨ Real-time syntax highlighting
-- 🧠 Grammar-aware parsing with Pygments
-- 🖥️ Rich GUI built with PyQt5
-- 📁 File open/save functionality
-- 🌐 Multi-language support (initially Python, expandable to Java, C, etc.)
-- 🎨 Light/dark theme options (planned)
+### 🎯 Hedefler
 
-## 🧰 Technologies Used
+- Gerçek zamanlı kod vurgulama
+- Dilbilgisi tabanlı analiz (grammar-based parsing)
+- Modern ve kullanıcı dostu arayüz
+- Çoklu dil desteği (ilk olarak Python, ardından Java, C vs.)
+- Tema seçenekleri (koyu/açık)
+- Dosya açma/kaydetme gibi editör özellikleri
 
-- Python 3.12.4
-- PyQt5
-- QSyntaxHighlighter
-- Pygments
-- Regex / Lark (for future parsing)
+### 🛠️ Kullanılan Teknolojiler
+
+- Python 3.x
+- PyQt5 (GUI için)
+- QSyntaxHighlighter (renklendirme için)
+- Pygments (token ve lexer yönetimi için)
+- Git & GitHub (sürüm kontrolü)
+
+---
+
+## 🇬🇧 Project Description (English)
+
+This project is an **advanced real-time syntax highlighter** application developed in Python. It provides a modern GUI built with **PyQt5** and leverages **Pygments** for multi-language grammar-based parsing and real-time syntax coloring.
+
+### 🎯 Objectives
+
+- Real-time syntax highlighting
+- Grammar-aware language analysis
+- Rich, user-friendly PyQt5 GUI
+- Multi-language support (starting with Python, then Java, C, etc.)
+- Light/dark theme options
+- File open/save editor features
+
+### 🛠️ Technologies Used
+
+- Python 3.x
+- PyQt5 for GUI
+- QSyntaxHighlighter for syntax highlighting
+- Pygments for tokenization and language parsing
 - Git & GitHub for version control
 
-## 📌 Project Goal
+---
 
-To build a modular, extensible, and user-friendly real-time code editor that not only highlights syntax but also lays the foundation for integrating grammar-based linting and static analysis in the future.
+## 📌 Katkı / Contribution
 
-## 🧠 Target Audience
+Her türlü katkıya açığız! İster hata bildir, ister kod gönder — Pull Request'lere ve Issues'lara açığız.
 
-- Students learning compiler design, programming languages or GUI development
-- Developers who want to understand how syntax highlighting engines work
-- Anyone looking to contribute to an open-source, Python-based developer tool
+---
+
+## 🧠 Hedef Kitle / Target Audience
+
+- Derleyici, dil çözümleme veya GUI geliştirme öğrenen öğrenciler
+- Syntax highlighter motorlarını merak eden geliştiriciler
+- Python ile araç geliştirme üzerine çalışan açık kaynak geliştiriciler
+
+---
 
