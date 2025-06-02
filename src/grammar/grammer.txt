@@ -1,0 +1,61 @@
+# grammar/grammar.txt
+
+# PROGRAM YAPISI
+
+program         → stmt_list
+stmt_list       → stmt stmt_list | ε
+
+# STATEMENT TÜRLERİ
+
+stmt            → assign_stmt 
+                | if_stmt 
+                | while_stmt 
+                | return_stmt 
+                | func_def_stmt 
+                | func_call_stmt 
+                | print_stmt 
+                | comment
+
+assign_stmt     → IDENTIFIER '=' expr ';'
+if_stmt         → 'if' '(' expr ')' block else_clause
+else_clause     → 'else' block | ε
+while_stmt      → 'while' '(' expr ')' block
+return_stmt     → 'return' expr ';'
+func_def_stmt   → 'function' IDENTIFIER '(' param_list ')' block
+func_call_stmt  → IDENTIFIER '(' arg_list ')' ';'
+print_stmt      → 'print' '(' expr ')' ';'
+comment         → '#' .* '\n'
+
+# BLOCK (KOD BLOĞU)
+
+block           → '{' stmt_list '}'
+
+# PARAMETRE VE ARGÜMANLAR
+
+param_list      → IDENTIFIER (',' IDENTIFIER)* | ε
+arg_list        → expr (',' expr)* | ε
+
+# İFADELER
+
+expr            → term (('+' | '-' | '*' | '/') term)*
+term            → IDENTIFIER 
+                | NUMBER 
+                | STRING 
+                | func_call
+func_call       → IDENTIFIER '(' arg_list ')'
+
+# TERMINAL SEMBOLLER
+
+KEYWORD         → 'if' | 'else' | 'while' | 'return' | 'function' | 'print' | 'int' | 'float'
+OPERATOR        → '+' | '-' | '*' | '/' | '=' | '==' | '!='
+DELIMITER       → ';' | '(' | ')' | '{' | '}' | ','
+IDENTIFIER      → [A-Za-z_][A-Za-z0-9_]*
+NUMBER          → [0-9]+(\.[0-9]+)?
+STRING          → ".*?" | '.*?'
+COMMENT         → '#' .* (yeni satıra kadar)
+
+# NOTLAR
+
+# - 'ε' boş üretimi ifade eder.
+# - Fonksiyonlar sadece çağrılabilir, dönüş tipi tanımı şimdilik yoktur.
+# - 'print()' sadece ifadeyi basar, kod içi çıktılar için kullanılır.
