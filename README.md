@@ -15,7 +15,7 @@ Bu proje, Python programlama dili kullanılarak geliştirilen, **gerçek zamanl�
 
 ### 🛠️ Kullanılan Teknolojiler
 
-- Python 3.x
+- Python 3.12.4
 - PyQt5 (GUI için)
 - QSyntaxHighlighter (renklendirme için)
 - Pygments (token ve lexer yönetimi için)
@@ -38,7 +38,7 @@ This project is an **advanced real-time syntax highlighter** application develop
 
 ### 🛠️ Technologies Used
 
-- Python 3.x
+- Python 3.12.4
 - PyQt5 for GUI
 - QSyntaxHighlighter for syntax highlighting
 - Pygments for tokenization and language parsing
