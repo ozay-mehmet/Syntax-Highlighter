@@ -1,10 +1,12 @@
-from src.gui import SyntaxHighlighterApp 
-import tkinter as tk
+from PyQt5.QtWidgets import QApplication
+from src.gui import SyntaxHighlighterApp
+import sys
 
 def main():
-    root = tk.Tk()
-    app = SyntaxHighlighterApp(root)
-    root.mainloop()
+    app = QApplication(sys.argv)
+    window = SyntaxHighlighterApp()
+    window.show()
+    sys.exit(app.exec_())
 
 if __name__ == "__main__":
     main()
