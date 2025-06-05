@@ -34,18 +34,34 @@ class SyntaxHighlighterApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Real-Time Syntax Highlighter")
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100, 100, 800, 750) # Yüksekliği artırıldı
 
         self.editor = QPlainTextEdit()
-        fixed_font = QFontDatabase.systemFont(QFontDatabase.FixedFont)
-        fixed_font.setPointSize(12)
-        self.editor.setFont(fixed_font)
+        editor_font = QFontDatabase.systemFont(QFontDatabase.FixedFont)
+        editor_font.setPointSize(12)
+        self.editor.setFont(editor_font)
+
+        self.token_label = QLabel("Token Analizi:")
+        self.token_view = QPlainTextEdit()
+        self.token_view.setReadOnly(True)
+        analysis_font = QFontDatabase.systemFont(QFontDatabase.FixedFont)
+        analysis_font.setPointSize(10)
+        self.token_view.setFont(analysis_font)
+
+        self.parse_tree_label = QLabel("Ayrıştırma Adımları (Parse Tree):")
+        self.parse_tree_view = QPlainTextEdit()
+        self.parse_tree_view.setReadOnly(True)
+        self.parse_tree_view.setFont(analysis_font)
 
         self.status_label = QLabel()
         self.status_label.setStyleSheet("color: red;")
 
         layout = QVBoxLayout()
-        layout.addWidget(self.editor)
+        layout.addWidget(self.editor, 3) # Editöre daha fazla yer ver
+        layout.addWidget(self.token_label)
+        layout.addWidget(self.token_view, 1) # Token görünümüne yer
+        layout.addWidget(self.parse_tree_label)
+        layout.addWidget(self.parse_tree_view, 1) # Parse tree görünümüne yer
         layout.addWidget(self.status_label)
 
         container = QWidget()
@@ -135,22 +151,75 @@ class SyntaxHighlighterApp(QMainWindow):
                 color: {theme['text']};
             }}
         """)
+        analysis_bg_color = theme.get('background', '#FFFFFF')
+        analysis_text_color = theme.get('text', '#000000')
+
+        self.token_view.setStyleSheet(f"""
+            QPlainTextEdit {{
+                background-color: {analysis_bg_color};
+                color: {analysis_text_color};
+                border: 1px solid gray;
+            }}
+        """)
+        self.parse_tree_view.setStyleSheet(f"""
+            QPlainTextEdit {{
+                background-color: {analysis_bg_color};
+                color: {analysis_text_color};
+                border: 1px solid gray;
+            }}
+        """)
         self.editor.repaint()
+        self.token_view.repaint()
+        self.parse_tree_view.repaint()
 
     def on_text_changed(self):
-        self.analysis_timer.start(300)
+        self.analysis_timer.start(300) 
 
     def perform_syntax_check(self):
         code = self.editor.toPlainText()
+        self.token_view.clear()
+        self.parse_tree_view.clear()
+        self.status_label.setText("")
+
+        if not code.strip():
+            self.status_label.setText("Analiz edilecek kod yok.")
+            self.status_label.setStyleSheet("color: orange;")
+            return
+
         try:
             tokens = tokenize(code)
+            formatted_tokens = []
+            for i, (tok_type, tok_val) in enumerate(tokens):
+                tok_val_display = tok_val.replace('\n', '\\n').replace('\r', '\\r')
+                formatted_tokens.append(f"{i+1:03d} - {tok_type:<12}: '{tok_val_display}'")
+            self.token_view.setPlainText("\n".join(formatted_tokens))
+
             parser = Parser(tokens)
-            parser.parse()
-            self.status_label.setText("")
+            parser.parse() 
+
+            parse_trace_str = "\n".join(parser.get_parse_trace())
+            self.parse_tree_view.setPlainText(parse_trace_str)
+            
+            self.status_label.setText("Sözdizimi analizi başarılı.")
+            self.status_label.setStyleSheet("color: green;")
+
         except SyntaxError as e:
             self.status_label.setText(f"Sözdizimi Hatası: {e}")
+            self.status_label.setStyleSheet("color: red;")
+            if 'parser' in locals() and hasattr(parser, 'get_parse_trace'):
+                parse_trace_str = "\n".join(parser.get_parse_trace())
+                self.parse_tree_view.setPlainText(parse_trace_str)
+            else: 
+                self.parse_tree_view.setPlainText(f"Ayrıştırma sırasında hata oluştu: {e}")
+        
         except Exception as e:
-            self.status_label.setText(f"Hata: {e}")
+            self.status_label.setText(f"Beklenmedik Hata: {e}")
+            self.status_label.setStyleSheet("color: red;")
+            if 'parser' in locals() and hasattr(parser, 'get_parse_trace'):
+                parse_trace_str = "\n".join(parser.get_parse_trace())
+                self.parse_tree_view.setPlainText(parse_trace_str + f"\n--- BEKLENMEDİK HATA ---\n{e}")
+            else:
+                self.parse_tree_view.setPlainText(f"Analiz sırasında beklenmedik hata: {e}")
             
     def open_file(self):
         options = QFileDialog.Options()
