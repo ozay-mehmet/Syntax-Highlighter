@@ -1,142 +1,161 @@
+# 🖍️ Real-Time Grammar-Based Syntax Highlighter
 
-# 🖍️ Real-Time Grammar-Based Syntax Highlighter (Python + PyQt5)
+> 🎯 A professional Python + PyQt5 application that provides real-time, grammar-aware syntax highlighting using Pygments.  
+> 📄 [Medium Article (EN/TR)](https://medium.com/@mehmet-ozay/ger%C3%A7ek-zamanl%C4%B1-syntax-highlighter-python-ve-pyqt5-ile-modern-kod-vurgulama-6b93d313b652) · 🎥 [Demo Video](https://www.youtube.com/watch?v=ZCoWH5PO7TI) · 📘 [Technical Docs](https://github.com/ozay-mehmet/Syntax-Highlighter/blob/main/docs/final_documentation.md)
+
+---
 
 ## 🌐 Overview
 
-This project is an **advanced real-time syntax highlighter** application developed using **Python** and **PyQt5**. It features **grammar-aware analysis** and **dynamic syntax highlighting**, powered by **Pygments**. With a user-friendly interface and support for multiple themes and languages, this tool aims to deliver a professional-grade experience for code editing.
+A modern, feature-rich code editor built in **Python** using **PyQt5**, **QSyntaxHighlighter**, and **Pygments**. This tool offers **grammar-aware token parsing**, **real-time syntax highlighting**, and **multi-theme support**, designed to improve your code editing experience with style and intelligence.
 
 ---
 
 ## ✨ Features
 
-- ✅ **Real-Time Syntax Highlighting**
-- 🧠 **Grammar-Based Parsing**
-- 🌓 **Light / Dark Theme Support**
-- 📂 **File Open/Save Editor Functionalities**
-- 🧑‍💻 **Python Language Support (starting with Python)**
-- 🪄 **Modern PyQt5 Interface**
+- ✅ Real-time syntax highlighting
+- 🧠 Grammar-based lexical parsing (via Pygments)
+- 🌓 Light/Dark theme toggle
+- 📂 File open/save support
+- 🧑‍💻 Native Python syntax highlighting (more languages soon)
+- 🪄 Modern and responsive PyQt5 interface
 
 ---
 
 ## 🖼️ Screenshots
 
-### ☀️ Light Theme
-
-![Light Theme Screenshot](./docs/light.png)
-
-### 🌙 Dark Theme
-
-![Dark Theme Screenshot](./docs/dark.png)
+| ☀️ Light Theme                               | 🌙 Dark Theme                                |
+|---------------------------------------------|----------------------------------------------|
+| ![Light](./docs/light.png)                  | ![Dark](./docs/dark.png)                    |
 
 ---
 
 ## 🛠️ Technologies Used
 
-| Technology         | Purpose                         |
-| ------------------ | ------------------------------- |
-| Python 3.12.4      | Core language                   |
-| PyQt5              | Graphical User Interface        |
-| QSyntaxHighlighter | Syntax Coloring Engine          |
-| Pygments           | Tokenization & Language Parsing |
-| Git & GitHub       | Version Control                 |
+| Technology         | Role                                     |
+|--------------------|------------------------------------------|
+| Python 3.12.4      | Main programming language                |
+| PyQt5              | GUI framework                            |
+| QSyntaxHighlighter | Core syntax coloring engine              |
+| Pygments           | Grammar-aware tokenization and parsing   |
+| Git & GitHub       | Version control                          |
 
 ---
 
-## 🚀 Future Plans
+## 📄 Documentation
+
+| Type                | Link                                            |
+|---------------------|-------------------------------------------------|
+| 📘 Technical Docs   | [View Docs](https://github.com/ozay-mehmet/Syntax-Highlighter/blob/main/docs/final_documentation.md)         |
+| ✍️ Medium Article   | [Read Article](https://medium.com/@mehmet-ozay/ger%C3%A7ek-zamanl%C4%B1-syntax-highlighter-python-ve-pyqt5-ile-modern-kod-vurgulama-6b93d313b652) |
+| 🎥 Demo Video       | [Watch Demo](https://www.youtube.com/watch?v=ZCoWH5PO7TI)     |
+
+---
+
+## 🚀 Roadmap
 
 - 💾 Auto-save & crash recovery
-- 🔎 Find/Replace functionality
-- 📊 Performance optimization for large files
-- ⚙️ Customizable theme editor
+- 🔍 Find and Replace feature
+- ⚡ Performance optimization for large files
+- 🎨 Customizable theme editor
 
 ---
 
 ## 🤝 Contributing
 
-We welcome all kinds of contributions! You can:
+We welcome all contributions!
 
-- 🐞 Report bugs
-- 💡 Suggest features
-- 🔧 Submit pull requests
-
-Open an [Issue](https://github.com/your-repo/issues) or a [Pull Request](https://github.com/your-repo/pulls) to get started.
+- 🐞 Report bugs via [Issues](https://github.com/ozay-mehmet/Syntax-Highlighter/issues)
+- 💡 Suggest features and improvements
+- 🔧 Submit a [Pull Request](https://github.com/ozay-mehmet/Syntax-Highlighter/pulls)
 
 ---
 
 ## 📬 Contact
 
-For questions or collaboration:
-🔗 [LinkedIn](https://www.linkedin.com/in/mehmet-ozay/)
+For collaboration or questions:  
+🔗 [LinkedIn – Mehmet Özay](https://www.linkedin.com/in/mehmet-ozay/)
 
 ---
 
----
+## 🇹🇷 Türkçe Versiyon – Gerçek Zamanlı Gramer Tabanlı Sözdizimi Vurgulayıcı
 
-# 🇹🇷 Gerçek Zamanlı Gramer Tabanlı Sözdizimi Vurgulayıcı (Python + PyQt5)
+---
 
 ## 🌐 Genel Bakış
 
-Bu proje, **Python** ve **PyQt5** kullanılarak geliştirilmiş **gelişmiş bir gerçek zamanlı sözdizimi vurgulayıcı** uygulamasıdır. **Pygments** desteğiyle birlikte **gramer farkındalığına sahip analiz** ve **dinamik kod renklendirme** özellikleri sunar. Kullanıcı dostu arayüzüyle birden fazla tema ve dil desteği sağlayarak, kod düzenleme konusunda profesyonel bir deneyim sunmayı hedefler.
+Bu uygulama, **Python**, **PyQt5**, ve **Pygments** kullanılarak geliştirilmiş modern bir **kod editörüdür**. Gerçek zamanlı sözdizimi vurgulama, gramer tabanlı token analizleri ve tema desteği gibi birçok gelişmiş özellik sunar.
 
 ---
 
 ## ✨ Özellikler
 
-- ✅ **Gerçek Zamanlı Sözdizimi Vurgulama**
-- 🧠 **Gramer Tabanlı Ayrıştırma**
-- 🌓 **Açık / Karanlık Tema Desteği**
-- 📂 **Dosya Aç/Kaydet Editör Fonksiyonları**
-- 🧑‍💻 **Python Dili Desteği (başlangıçta Python)**
-- 🪄 **Modern PyQt5 Arayüzü**
+- ✅ Gerçek zamanlı sözdizimi vurgulama
+- 🧠 Pygments ile gramer tabanlı ayrıştırma
+- 🌓 Açık / Karanlık tema desteği
+- 📂 Dosya aç/kaydet özellikleri
+- 🧑‍💻 Python dili desteği (ileride diğer diller eklenecek)
+- 🪄 Modern PyQt5 arayüzü
 
 ---
 
 ## 🖼️ Ekran Görüntüleri
 
-### ☀️ Açık Tema
-
-![Light Theme Screenshot](./docs/light.png)
-
-### 🌙 Karanlık Tema
-
-![Dark Theme Screenshot](./docs/dark.png)
+| ☀️ Açık Tema                                 | 🌙 Karanlık Tema                              |
+|---------------------------------------------|----------------------------------------------|
+| ![Light](./docs/light.png)                  | ![Dark](./docs/dark.png)                    |
 
 ---
 
 ## 🛠️ Kullanılan Teknolojiler
 
-| Teknoloji          | Amacı                            |
-| ------------------ | --------------------------------- |
-| Python 3.12.4      | Temel programlama dili            |
-| PyQt5              | Grafiksel kullanıcı arayüzü   |
-| QSyntaxHighlighter | Kod renklendirme motoru           |
-| Pygments           | Tokenizasyon ve dil ayrıştırma |
-| Git & GitHub       | Sürüm kontrol sistemi           |
+| Teknoloji          | Kullanım Amacı                          |
+|--------------------|------------------------------------------|
+| Python 3.12.4      | Temel programlama dili                   |
+| PyQt5              | Grafiksel kullanıcı arayüzü              |
+| QSyntaxHighlighter | Kod renklendirme motoru                  |
+| Pygments           | Token analizi ve gramer ayrıştırması     |
+| Git & GitHub       | Sürüm kontrol sistemi                    |
+
+---
+
+## 📄 Belgeler
+
+| Tür                 | Bağlantı                                           |
+|---------------------|----------------------------------------------------|
+| 📘 Teknik Dokümantasyon | [Dökümantasyonu Görüntüle](https://github.com/ozay-mehmet/Syntax-Highlighter/blob/main/docs/final_documentation.md) |
+| ✍️ Medium Makalesi     | [Makaleyi Oku](https://medium.com/@mehmet-ozay/ger%C3%A7ek-zamanl%C4%B1-syntax-highlighter-python-ve-pyqt5-ile-modern-kod-vurgulama-6b93d313b652)         |
+| 🎥 Demo Videosu        | [Videoyu İzle](https://www.youtube.com/watch?v=ZCoWH5PO7TI)          |
 
 ---
 
 ## 🚀 Gelecek Planları
 
-- 💾 Otomatik kayıt & çökme kurtarma
-- 🔎 Bul/Değiştir özelliği
-- 📊 Büyük dosyalar için performans iyileştirmeleri
-- ⚙️ Özelleştirilebilir tema düzenleyici
+- 💾 Otomatik kayıt ve çökme kurtarma
+- 🔍 Bul/Değiştir özelliği
+- ⚡ Büyük dosyalar için performans artırımı
+- 🎨 Özelleştirilebilir tema düzenleyici
 
 ---
 
-## 🤝 Katkıda Bulunun
+## 🤝 Katkı Sağlayın
 
-Her türlü katkıya açığız! Şunları yapabilirsiniz:
+Her türlü katkıya açığız!
 
-- 🐞 Hata bildirin
-- 💡 Özellik önerin
-- 🔧 Pull Request gönderin
-
-Başlamak için bir [Issue](https://github.com/your-repo/issues) ya da [Pull Request](https://github.com/your-repo/pulls) oluşturabilirsiniz.
+- 🐞 Hata bildirin → [Issue Açın](https://github.com/ozay-mehmet/Syntax-Highlighter/issues)
+- 💡 Yeni özellik önerin
+- 🔧 Pull Request gönderin → [Katkıda Bulunun](https://github.com/ozay-mehmet/Syntax-Highlighter/pulls)
 
 ---
 
 ## 📬 İletişim
 
-Soru ve işbirliği için:
-🔗 [LinkedIn](https://www.linkedin.com/in/mehmet-ozay/)
+İş birliği ya da sorular için:  
+🔗 [LinkedIn – Mehmet Özay](https://www.linkedin.com/in/mehmet-ozay/)
+
+---
+
+## 🏷️ Etiketler
+
+`#python` `#pyqt5` `#syntax-highlighter` `#code-editor` `#opensource` `#realtimesyntax`
+
