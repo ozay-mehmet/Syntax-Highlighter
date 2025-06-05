@@ -6,7 +6,7 @@ from PyQt5.QtGui import QTextCharFormat, QColor, QFont, QSyntaxHighlighter, QFon
 from PyQt5.QtCore import Qt, QTimer
 
 from src.lexer.lexer import tokenize
-from src.highlighter.highlighter import apply_highlighting
+from src.highlighter.highlighter import apply_highlighting 
 from src.parser.parser import Parser
 
 class CustomHighlighter(QSyntaxHighlighter):
@@ -105,7 +105,7 @@ class SyntaxHighlighterApp(QMainWindow):
                     'NUMBER':     QColor("#50DB05"),
                     'OPERATOR':   QColor("#C53939"),
                     'DELIMITER':  QColor("#08AE8D"),
-                    'COMMENT':    QColor("#174501"),
+                    'COMMENT':    QColor("#0ECEEB"),
                     'STRING':     QColor("#C56843"),
                 }
             }
