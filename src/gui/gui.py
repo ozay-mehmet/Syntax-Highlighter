@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QPlainTextEdit, QLabel,
-    QVBoxLayout, QWidget, QMenuBar, QAction
+    QVBoxLayout, QWidget, QMenuBar, QAction, QFileDialog
 )
 from PyQt5.QtGui import QTextCharFormat, QColor, QFont, QSyntaxHighlighter, QFontDatabase
 from PyQt5.QtCore import Qt, QTimer
@@ -54,6 +54,13 @@ class SyntaxHighlighterApp(QMainWindow):
 
         self.menu_bar = QMenuBar(self)
         self.setMenuBar(self.menu_bar)
+
+        # Dosya Menüsü
+        file_menu = self.menu_bar.addMenu("Dosya")
+        open_action = QAction("Aç", self)
+        open_action.triggered.connect(self.open_file)
+        file_menu.addAction(open_action)
+
         self.theme_menu = self.menu_bar.addMenu("Tema")
         self.add_theme_options()
 
@@ -117,7 +124,8 @@ class SyntaxHighlighterApp(QMainWindow):
         if theme_name in self.themes:
             self.current_theme = theme_name
             self.apply_theme()
-            self.highlighter.rehighlight()
+            if hasattr(self, 'highlighter'): 
+                self.highlighter.rehighlight()
 
     def apply_theme(self):
         theme = self.themes[self.current_theme]
@@ -143,6 +151,18 @@ class SyntaxHighlighterApp(QMainWindow):
             self.status_label.setText(f"Sözdizimi Hatası: {e}")
         except Exception as e:
             self.status_label.setText(f"Hata: {e}")
+            
+    def open_file(self):
+        options = QFileDialog.Options()
+        file_name, _ = QFileDialog.getOpenFileName(self, "Dosya Aç", "", "Tüm Dosyalar (*);;Metin Dosyaları (*.txt);;Python Dosyaları (*.py)", options=options)
+        if file_name:
+            try:
+                with open(file_name, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    self.editor.setPlainText(content)
+                    self.status_label.setText(f"'{file_name}' yüklendi.")
+            except Exception as e:
+                self.status_label.setText(f"Dosya okuma hatası: {e}")
 
 if __name__ == "__main__":
     import sys
