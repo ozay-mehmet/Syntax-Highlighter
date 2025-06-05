@@ -136,6 +136,7 @@ class SyntaxHighlighterApp(QMainWindow):
         self.theme_menu.addAction(light_action)
         self.theme_menu.addAction(dark_action)
 
+    # tema değişimi
     def change_theme(self, theme_name):
         if theme_name in self.themes:
             self.current_theme = theme_name
@@ -175,6 +176,7 @@ class SyntaxHighlighterApp(QMainWindow):
     def on_text_changed(self):
         self.analysis_timer.start(300) 
 
+    # söz dizim analizi
     def perform_syntax_check(self):
         code = self.editor.toPlainText()
         self.token_view.clear()
@@ -220,7 +222,8 @@ class SyntaxHighlighterApp(QMainWindow):
                 self.parse_tree_view.setPlainText(parse_trace_str + f"\n--- BEKLENMEDİK HATA ---\n{e}")
             else:
                 self.parse_tree_view.setPlainText(f"Analiz sırasında beklenmedik hata: {e}")
-            
+    
+    # dosya açma menüsü
     def open_file(self):
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, "Dosya Aç", "", "Tüm Dosyalar (*);;Metin Dosyaları (*.txt);;Python Dosyaları (*.py)", options=options)
