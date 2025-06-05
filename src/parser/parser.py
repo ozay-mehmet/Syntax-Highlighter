@@ -28,7 +28,7 @@ class Parser:
         self.stmt_list()
 
     def stmt_list(self):
-        while self.peek()[0] in ('IDENTIFIER', 'KEYWORD'):
+        while self.peek()[0] in ('IDENTIFIER', 'KEYWORD', 'FUNCTIONS'):
             self.stmt()
 
     def stmt(self):
@@ -45,6 +45,8 @@ class Parser:
                 self.return_stmt()
             else:
                 raise SyntaxError(f"Unexpected keyword: {token_value}")
+        elif token_type == 'BUILTIN_FUNCTIONS':
+            self.func_call_stmt()
         else:
             raise SyntaxError(f"Unexpected token in statement: {self.peek()}")
 
@@ -55,10 +57,11 @@ class Parser:
             raise SyntaxError("Expected '='")
         self.expr()
         if not self.match('DELIMITER', ';'):
-            raise SyntaxError("Expected ';'")
+            raise SyntaxError("Expected ';' at the end of assignment")
 
     def if_stmt(self):
-        self.match('KEYWORD', 'if')
+        if not self.match('KEYWORD', 'if'):
+            raise SyntaxError("Expected 'if'")
         if not self.match('DELIMITER', '('):
             raise SyntaxError("Expected '(' after 'if'")
         self.expr()
@@ -71,7 +74,8 @@ class Parser:
             raise SyntaxError("Expected '}' to end block")
 
     def while_stmt(self):
-        self.match('KEYWORD', 'while')
+        if not self.match('KEYWORD', 'while'):
+            raise SyntaxError("Expected 'while'")
         if not self.match('DELIMITER', '('):
             raise SyntaxError("Expected '(' after 'while'")
         self.expr()
@@ -84,29 +88,56 @@ class Parser:
             raise SyntaxError("Expected '}' to end block")
 
     def return_stmt(self):
-        self.match('KEYWORD', 'return')
+        if not self.match('KEYWORD', 'return'):
+            raise SyntaxError("Expected 'return'")
         self.expr()
         if not self.match('DELIMITER', ';'):
-            raise SyntaxError("Expected ';' after return")
+            raise SyntaxError("Expected ';' after return statement")
+
+    def func_call_stmt(self):
+        if not self.match('FUNCTIONS'):
+            raise SyntaxError("Expected function name")
+        if not self.match('DELIMITER', '('):
+            raise SyntaxError("Expected '(' after function name")
+        if not (self.peek()[0] == 'DELIMITER' and self.peek()[1] == ')'):
+            self.expr()
+            while self.match('DELIMITER', ','):
+                self.expr()
+        if not self.match('DELIMITER', ')'):
+            raise SyntaxError("Expected ')' after function arguments")
+        if not self.match('DELIMITER', ';'):
+            raise SyntaxError("Expected ';' after function call")
 
     def expr(self):
         self.term()
-        while self.peek()[1] in ('+', '-'):
+        while self.peek()[0] == 'OPERATOR' and self.peek()[1] in ('+', '-', '==', '!=', '<', '<=', '>', '>=', 'and', 'or'):
             self.advance()
             self.term()
 
     def term(self):
-        token_type, _ = self.peek()
-        if token_type in ('IDENTIFIER', 'NUMBER'):
+        self.factor()
+        while self.peek()[0] == 'OPERATOR' and self.peek()[1] in ('*', '/'):
             self.advance()
+            self.factor()
+
+    def factor(self):
+        token_type, token_value = self.peek()
+        if token_type in ('NUMBER', 'IDENTIFIER', 'STRING'):
+            self.advance()
+        elif token_type == 'DELIMITER' and token_value == '(':
+            self.advance()
+            self.expr()
+            if not self.match('DELIMITER', ')'):
+                raise SyntaxError("Expected ')' after expression")
         else:
-            raise SyntaxError("Expected identifier or number")
+            raise SyntaxError(f"Expected identifier, number, or '(', got: {self.peek()}")
 
 if __name__ == "__main__":
     sample_tokens = [
         ('KEYWORD', 'if'), ('DELIMITER', '('), ('IDENTIFIER', 'x'), ('OPERATOR', '=='), ('NUMBER', '0'), ('DELIMITER', ')'),
         ('DELIMITER', '{'),
             ('IDENTIFIER', 'x'), ('OPERATOR', '='), ('NUMBER', '1'), ('DELIMITER', ';'),
+            ('FUNCTIONS', 'foo'), ('DELIMITER', '('), ('NUMBER', '42'), ('DELIMITER', ')'), ('DELIMITER', ';'),
             ('KEYWORD', 'return'), ('IDENTIFIER', 'x'), ('DELIMITER', ';'),
         ('DELIMITER', '}')
     ]

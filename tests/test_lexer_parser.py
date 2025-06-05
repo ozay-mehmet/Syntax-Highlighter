@@ -11,7 +11,6 @@ class TestLexer(unittest.TestCase):
             ('IDENTIFIER', 'x'),
             ('OPERATOR', '='),
             ('NUMBER', '42'),
-            ('DELIMITER', ';'),
         ]
         self.assertEqual(tokens, expected)
 

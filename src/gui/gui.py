@@ -1,68 +1,152 @@
-import tkinter as tk
-from tkinter import messagebox
+from PyQt5.QtWidgets import (
+    QApplication, QMainWindow, QPlainTextEdit, QLabel,
+    QVBoxLayout, QWidget, QMenuBar, QAction
+)
+from PyQt5.QtGui import QTextCharFormat, QColor, QFont, QSyntaxHighlighter, QFontDatabase
+from PyQt5.QtCore import Qt, QTimer
+
 from src.lexer.lexer import tokenize
 from src.highlighter.highlighter import apply_highlighting
 from src.parser.parser import Parser
 
-class SyntaxHighlighterApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Real-Time Syntax Highlighter")
+class CustomHighlighter(QSyntaxHighlighter):
+    def __init__(self, document, get_token_colors):
+        super().__init__(document)
+        self.get_token_colors = get_token_colors
 
-        self.text = tk.Text(root, wrap="word", font=("Consolas", 12))
-        self.text.pack(expand=True, fill="both")
+    def highlightBlock(self, text):
+        token_colors_map = self.get_token_colors()
+        tokens_from_lexer = tokenize(text)
+        cursor = 0
+        for token_type, lexeme in tokens_from_lexer:
+            start_index = text.find(lexeme, cursor)
+            if start_index == -1:
+                continue
+            end_index = start_index + len(lexeme)
+            fmt = QTextCharFormat()
+            color = token_colors_map.get(token_type, None)
+            if color:
+                fmt.setForeground(color)
+            self.setFormat(start_index, len(lexeme), fmt)
+            cursor = end_index
 
-        self.token_colors = {
-            'KEYWORD':    'blue',
-            'IDENTIFIER': 'black',
-            'NUMBER':     'darkorange',
-            'OPERATOR':   'red',
-            'DELIMITER':  'green',
-            'COMMENT':    'gray',
-            'STRING':     'purple',
+class SyntaxHighlighterApp(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Real-Time Syntax Highlighter")
+        self.setGeometry(100, 100, 800, 600)
+
+        self.editor = QPlainTextEdit()
+        fixed_font = QFontDatabase.systemFont(QFontDatabase.FixedFont)
+        fixed_font.setPointSize(12)
+        self.editor.setFont(fixed_font)
+
+        self.status_label = QLabel()
+        self.status_label.setStyleSheet("color: red;")
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.editor)
+        layout.addWidget(self.status_label)
+
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+
+        self.menu_bar = QMenuBar(self)
+        self.setMenuBar(self.menu_bar)
+        self.theme_menu = self.menu_bar.addMenu("Tema")
+        self.add_theme_options()
+
+        self.themes = {
+            "light": {
+                "background": "#FFFFFF",
+                "text": "#000000",
+                "token_colors": {
+                    'KEYWORD':    QColor("blue"),
+                    'FUNCTIONS':  QColor("#DC0EF3"),
+                    'IDENTIFIER': QColor("black"),
+                    'NUMBER':     QColor("darkorange"),
+                    'OPERATOR':   QColor("red"),
+                    'DELIMITER':  QColor("green"),
+                    'COMMENT':    QColor("gray"),
+                    'STRING':     QColor("purple"),
+                }
+            },
+            "dark": {
+                "background": "#1e1e1e",
+                "text": "#d4d4d4",
+                "token_colors": {
+                    'KEYWORD':    QColor("#248BE0"),
+                    'FUNCTIONS':  QColor("#D20CF1"),
+                    'IDENTIFIER': QColor("#ffffff"),
+                    'NUMBER':     QColor("#50DB05"),
+                    'OPERATOR':   QColor("#C53939"),
+                    'DELIMITER':  QColor("#08AE8D"),
+                    'COMMENT':    QColor("#174501"),
+                    'STRING':     QColor("#C56843"),
+                }
+            }
         }
 
-        for token_type, color in self.token_colors.items():
-            self.text.tag_configure(token_type, foreground=color)
+        self.current_theme = "light"
+        self.apply_theme()
 
-        # Hata mesajı için status bar
-        self.status = tk.Label(root, text="", fg="red", anchor="w")
-        self.status.pack(fill="x")
+        self.highlighter = CustomHighlighter(self.editor.document(), self.get_token_colors)
 
-        self.text.bind("<KeyRelease>", self.on_key_release)
+        # Performans için gecikmeli analiz
+        self.analysis_timer = QTimer()
+        self.analysis_timer.setSingleShot(True)
+        self.analysis_timer.timeout.connect(self.perform_syntax_check)
 
-    def on_key_release(self, event=None):
-        code = self.text.get("1.0", "end-1c")
-        self.highlight_code(code)
+        self.editor.textChanged.connect(self.on_text_changed)
 
-    def highlight_code(self, code):
-        for tag in self.token_colors:
-            self.text.tag_remove(tag, "1.0", "end")
+    def get_token_colors(self):
+        return self.themes[self.current_theme]["token_colors"]
 
-        self.status.config(text="")  # Hata mesajını sıfırla
+    def add_theme_options(self):
+        light_action = QAction("Açık Tema", self)
+        dark_action = QAction("Koyu Tema", self)
 
+        light_action.triggered.connect(lambda: self.change_theme("light"))
+        dark_action.triggered.connect(lambda: self.change_theme("dark"))
+
+        self.theme_menu.addAction(light_action)
+        self.theme_menu.addAction(dark_action)
+
+    def change_theme(self, theme_name):
+        if theme_name in self.themes:
+            self.current_theme = theme_name
+            self.apply_theme()
+            self.highlighter.rehighlight()
+
+    def apply_theme(self):
+        theme = self.themes[self.current_theme]
+        self.editor.setStyleSheet(f"""
+            QPlainTextEdit {{
+                background-color: {theme['background']};
+                color: {theme['text']};
+            }}
+        """)
+        self.editor.repaint()
+
+    def on_text_changed(self):
+        self.analysis_timer.start(300)
+
+    def perform_syntax_check(self):
+        code = self.editor.toPlainText()
         try:
             tokens = tokenize(code)
-            highlighted = apply_highlighting(tokens)
-
-            # Renk uygulaması
-            index = "1.0"
-            for token_type, lexeme, _ in highlighted:
-                if lexeme == '\n':
-                    index = self.text.index(f"{index} +1line linestart")
-                    continue
-
-                start = index
-                end = self.text.index(f"{start} +{len(lexeme)}c")
-
-                self.text.tag_add(token_type, start, end)
-                index = end
-
-            # Parser ile syntax kontrolü
             parser = Parser(tokens)
             parser.parse()
-
+            self.status_label.setText("")
         except SyntaxError as e:
-            self.status.config(text=f"Syntax Error: {e}")
+            self.status_label.setText(f"Sözdizimi Hatası: {e}")
         except Exception as e:
-            self.status.config(text=f"Error: {e}")
+            self.status_label.setText(f"Hata: {e}")
+
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    window = SyntaxHighlighterApp()
+    window.show()
+    sys.exit(app.exec_())

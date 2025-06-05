@@ -1,26 +1,28 @@
 from typing import List, Tuple
 
-Token = Tuple[str, str]  
+Token = Tuple[str, str]
 
-# Token türlerine göre renkler (örnek RGB hex veya kelime)
+# Token türlerine göre renk tanımlamaları
 TOKEN_COLORS = {
-    'KEYWORD':     'blue',
-    'IDENTIFIER':  'black',
-    'NUMBER':      'darkorange',
-    'OPERATOR':    'red',
-    'DELIMITER':   'green',
-    'COMMENT':     'gray',
-    'STRING':      'purple',
+    'KEYWORD':    "blue",
+    'FUNCTIONS':  "#DC0EF3",
+    'IDENTIFIER': "black",
+    'NUMBER':     "darkorange",
+    'OPERATOR':   "red",
+    'DELIMITER':  "green",
+    'COMMENT':    "gray",
+    'STRING':     "purple",
 }
+
+DEFAULT_COLOR = '#000000'  # siyah
 
 def apply_highlighting(tokens: List[Token]) -> List[Tuple[str, str, str]]:
     """
-    Token listesine göre her bir kelimenin renklendirme bilgisini döner.
-    Çıktı: (token_type, lexeme, color)
+    Token listesine göre her bir token'a uygun rengi atar.
     """
     highlighted = []
     for token_type, lexeme in tokens:
-        color = TOKEN_COLORS.get(token_type, 'black')
+        color = TOKEN_COLORS.get(token_type, DEFAULT_COLOR)
         highlighted.append((token_type, lexeme, color))
     return highlighted
 
