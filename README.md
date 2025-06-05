@@ -22,11 +22,11 @@ This project is an **advanced real-time syntax highlighter** application develop
 
 ### ☀️ Light Theme
 
-![Light Theme Screenshot](Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-06-05%20190803.png)
+![Light Theme Screenshot](./docs/light.png)
 
 ### 🌙 Dark Theme
 
-![Dark Theme Screenshot](Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-06-05%20190813.png)
+![Dark Theme Screenshot](./docs/dark.png)
 
 ---
 
@@ -95,11 +95,11 @@ Bu proje, **Python** ve **PyQt5** kullanılarak geliştirilmiş **gelişmiş bir
 
 ### ☀️ Açık Tema
 
-![Light Theme Screenshot](Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-06-05%20190803.png)
+![Light Theme Screenshot](./docs/light.png)
 
 ### 🌙 Karanlık Tema
 
-![Dark Theme Screenshot](Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-06-05%20190813.png)
+![Dark Theme Screenshot](./docs/dark.png)
 
 ---
 
